@@ -1,7 +1,20 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import scipy.sparse.linalg
+import scipy
 import utils
+
+def get_cov_matrix(X):
+    """ Calculate covariance matrix from centered data X
+    Args:
+        X (np.ndarray): centered data matrix
+    Outputs:
+        cov_matrix (np.ndarray): covariance matrix
+    """
+
+    cov_matrix = np.transpose(X) @ X 
+    cov_matrix = 1/(X.shape[0] - 1) * cov_matrix
+    
+    return cov_matrix
 
 def center_data(Y):
     """
@@ -39,4 +52,16 @@ imgs = utils.load_images('/Users/truthixify/logs/learning-journal/code/pca/data/
 height, width = imgs[0].shape
 
 print(f'\nYour dataset has {len(imgs)} images of size {height}x{width} pixels\n')
-plt.imshow(imgs[0], cmap='gray')
+
+imgs_flatten = np.array([im.reshape(-1) for im in imgs])
+X = center_data(imgs_flatten)
+cov_matrix = get_cov_matrix(X)
+
+scipy.random.seed(7)
+eigenvals, eigenvecs = scipy.sparse.linalg.eigsh(cov_matrix, k=55)
+
+print(f'Ten largest eigenvalues: \n{eigenvals[-10:]}')
+
+Xred2 = perform_PCA(X, eigenvecs, 2)
+
+utils.plot_reduced_data(Xred2)
