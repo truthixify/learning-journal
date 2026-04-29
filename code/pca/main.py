@@ -53,7 +53,7 @@ height, width = imgs[0].shape
 
 print(f'\nYour dataset has {len(imgs)} images of size {height}x{width} pixels\n')
 
-imgs_flatten = np.array([im.reshape(-1) for im in imgs])
+imgs_flatten = np.array([im.reshape(-1) for im in imgs], dtype=np.float64)
 X = center_data(imgs_flatten)
 cov_matrix = get_cov_matrix(X)
 
