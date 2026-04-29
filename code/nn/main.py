@@ -88,7 +88,7 @@ def backward_propagation(A, X, Y):
     
     return grads
 
-def update_parameters(parameters, grads, learning_rate = 1.2):
+def update_parameters(parameters, grads, learning_rate = 0.001):
     """
     Updates parameters using the gradient descent update rule
     
