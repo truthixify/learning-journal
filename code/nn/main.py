@@ -42,6 +42,26 @@ def forward_propagation(X, parameters):
 
     return Y_hat
 
+def compute_cost(Y_hat, Y):
+    """
+    Computes the cost function as a sum of squares
+    
+    Arguments:
+    Y_hat -- The output of the neural network of shape (n_y, number of examples)
+    Y -- "true" labels vector of shape (n_y, number of examples)
+    
+    Returns:
+    cost -- sum of squares scaled by 1/(2*number of examples)
+    
+    """
+    # Number of examples.
+    m = Y.shape[1]
+
+    # Compute the cost function.
+    cost = np.sum((Y_hat - Y)**2)/(2*m)
+    
+    return cost
+
 def nn_model(X, Y, num_iterations=1000, print_cost=False):
     """
     Arguments:
@@ -64,6 +84,19 @@ def nn_model(X, Y, num_iterations=1000, print_cost=False):
 
         # Forward propagation, Inputs: "X, parameters". Outputs: "Y_hat".
         Y_hat = forward_propagation(X, parameters)
+
+        # Cost function. Inputs: "Y_hat, Y". Outputs: "cost".
+        cost = compute_cost(Y_hat, Y)
+        
+        # Parameters update.
+        parameters = train_nn(parameters, Y_hat, X, Y, learning_rate = 0.001) 
+        
+        # Print the cost every iteration.
+        if print_cost:
+            if i%100 == 0:
+                print ("Cost after iteration %i: %f" %(i, cost))
+
+    return parameters
 
 def predict(X, parameters):
     W = parameters['W']
