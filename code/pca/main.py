@@ -58,7 +58,7 @@ X = center_data(imgs_flatten)
 cov_matrix = get_cov_matrix(X)
 
 np.random.seed(7)
-eigenvals, eigenvecs = scipy.sparse.linalg.eigsh(cov_matrix, k=35)
+eigenvals, eigenvecs = scipy.sparse.linalg.eigsh(cov_matrix, k=55)
 
 print(f'Ten largest eigenvalues: \n{eigenvals[-10:]}')
 
