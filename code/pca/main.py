@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import scipy
+import scipy.sparse.linalg
 import utils
 
 def get_cov_matrix(X):
@@ -63,5 +63,3 @@ eigenvals, eigenvecs = scipy.sparse.linalg.eigsh(cov_matrix, k=55)
 print(f'Ten largest eigenvalues: \n{eigenvals[-10:]}')
 
 Xred2 = perform_PCA(X, eigenvecs, 2)
-
-utils.plot_reduced_data(Xred2)
