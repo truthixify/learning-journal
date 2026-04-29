@@ -10,8 +10,6 @@ def load_images(directory):
         img = np.array(image.imread(filename))
         gimg = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         images.append(gimg)
-
-        height, width = gimg.shape
         
     return images
 
