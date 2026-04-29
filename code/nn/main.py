@@ -22,6 +22,26 @@ def initialize_parameters(n_x):
     
     return parameters
 
+def forward_propagation(X, parameters):
+    """
+    Argument:
+    X -- input data of size (n_x, m), where n_x is the dimension input (in our example is 2) and m is the number of training samples
+    parameters -- python dictionary containing your parameters (output of initialization function)
+    
+    Returns:
+    Y_hat -- The output of size (1, m)
+    """
+
+    # Retrieve each parameter from the dictionary "parameters".
+    W = parameters['W']
+    b = parameters['b']
+
+    # Implement Forward Propagation to calculate Z.
+    Z = W @ X + b
+    Y_hat = Z
+
+    return Y_hat
+
 def nn_model(X, Y, num_iterations=1000, print_cost=False):
     """
     Arguments:
@@ -38,6 +58,12 @@ def nn_model(X, Y, num_iterations=1000, print_cost=False):
 
     # Initialize parameters
     parameters = initialize_parameters(n_x)
+
+    # Loop
+    for i in range(0, num_iterations):
+
+        # Forward propagation, Inputs: "X, parameters". Outputs: "Y_hat".
+        Y_hat = forward_propagation(X, parameters)
 
 def predict(X, parameters):
     W = parameters['W']
