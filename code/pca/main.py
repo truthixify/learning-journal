@@ -11,7 +11,7 @@ def get_cov_matrix(X):
         cov_matrix (np.ndarray): covariance matrix
     """
 
-    cov_matrix = np.transpose(X) @ X 
+    cov_matrix = X.T @ X 
     cov_matrix = 1/(X.shape[0] - 1) * cov_matrix
     
     return cov_matrix
@@ -58,7 +58,7 @@ X = center_data(imgs_flatten)
 cov_matrix = get_cov_matrix(X)
 
 np.random.seed(7)
-eigenvals, eigenvecs = scipy.sparse.linalg.eigsh(cov_matrix, k=55)
+eigenvals, eigenvecs = scipy.sparse.linalg.eigsh(cov_matrix, k=35)
 
 print(f'Ten largest eigenvalues: \n{eigenvals[-10:]}')
 
