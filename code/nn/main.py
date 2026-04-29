@@ -1,6 +1,43 @@
+import numpy as np
+import pandas as pd
 
 
+def initialize_parameters(n_x):
+    """
+    Returns:
+    params -- python dictionary containing your parameters:
+                    W -- weight matrix of shape (n_y, n_x)
+                    b -- bias value set as a vector of shape (n_y, 1)
+    """
+    
+    W = np.random.randn(1, n_x) * 0.01
+    b = np.zeros((1, 1))
 
+
+    assert (W.shape == (1, n_x))
+    assert (b.shape == (1, 1))
+    
+    parameters = {"W": W,
+                  "b": b}
+    
+    return parameters
+
+def nn_model(X, Y, num_iterations=1000, print_cost=False):
+    """
+    Arguments:
+    X -- dataset of shape (n_x, number of examples)
+    Y -- labels of shape (1, number of examples)
+    num_iterations -- number of iterations in the loop
+    print_cost -- if True, print the cost every iteration
+    
+    Returns:
+    parameters -- parameters learnt by the model. They can then be used to make predictions.
+    """
+
+    n_x = X.shape[0]
+
+    # Initialize parameters
+    parameters = initialize_parameters(n_x)
 
 def predict(X, parameters):
     W = parameters['W']
