@@ -87,7 +87,7 @@ def predict(X, parameters):
 
     return Z
 
-df = pd.read_csv("/Users/truthixify/dev/ai/python/math/lab/neural_network/data/toy_dataset.csv")
+df = pd.read_csv("/Users/truthixify/logs/learning-journal/code/nn/data/toy_dataset.csv")
 
 X = np.array(df[['x1','x2']]).T
 Y = np.array(df['y']).reshape(1,-1)
