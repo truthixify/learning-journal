@@ -38,9 +38,5 @@ def perform_PCA(X, eigenvecs, k):
 imgs = utils.load_images('/Users/truthixify/logs/learning-journal/code/pca/data/')
 height, width = imgs[0].shape
 
-imgs_flatten = np.array([im.reshape(-1) for im in imgs])
-
-print(f'imgs_flatten shape: {imgs_flatten.shape}')
-
 print(f'\nYour dataset has {len(imgs)} images of size {height}x{width} pixels\n')
 plt.imshow(imgs[0], cmap='gray')
