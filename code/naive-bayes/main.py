@@ -23,7 +23,7 @@ def preprocess_emails(df):
 
     """
     # Shuffles the dataset
-    df = df.sample(frac = 1, ignore_index = True, random_state = 420)
+    df = df.sample(frac = 1, ignore_index = True, random_state = 42)
     # Removes the "Subject:" string, which comprises the first 9 characters of each email. Also, convert it to a numpy array.
     X = df.text.apply(lambda x: x[9:]).to_numpy()
     # Convert the labels to numpy array
