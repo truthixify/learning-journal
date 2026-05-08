@@ -97,24 +97,3 @@ def predict(X, Y, parameters, X_pred):
     Y_pred = Y_pred_norm * np.std(Y) + np.mean(Y)
 
     return Y_pred[0]
-
-adv = pd.read_csv('/Users/truthixify/dev/ai/python/flex/data/tvmarketing.csv')
-adv_norm = (adv - adv.mean())/adv.std()
-X_norm = adv_norm['TV']
-Y_norm = adv_norm['Sales']
-
-X_norm = np.array(X_norm).reshape((1, len(X_norm)))
-Y_norm = np.array(Y_norm).reshape((1, len(Y_norm)))
-
-print ('The shape of X_norm: ' + str(X_norm.shape))
-print ('The shape of Y_norm: ' + str(Y_norm.shape))
-print ('I have m = %d training examples!' % (X_norm.shape[1]))
-
-parameters_simple = nn_model(X_norm, Y_norm, num_iterations=30, learning_rate=1.2, print_cost=True)
-print("W = " + str(parameters_simple["W"]))
-print("b = " + str(parameters_simple["b"]))
-
-X_pred = np.array([50, 120, 280])
-Y_pred = predict(adv["TV"], adv["Sales"], parameters_simple, X_pred)
-print(f"TV marketing expenses:\n{X_pred}")
-print(f"Predictions of sales:\n{Y_pred}")
