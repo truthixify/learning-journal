@@ -247,10 +247,8 @@ def predict(X, parameters):
     predictions -- vector of predictions of our model (blue: 0 / red: 1)
     """
     
-    ### START CODE HERE ### (≈ 2 lines of code)
-    A2, cache = forward_propagation(X, parameters)
+    A2, _ = forward_propagation(X, parameters)
     predictions = A2 > 0.5
-    ### END CODE HERE ###
     
     return predictions
 
@@ -265,3 +263,5 @@ X = np.transpose(samples)
 Y = labels.reshape((1, m))
 (n_x, n_h, n_y) = layer_sizes(X, Y)
 
+# Train model
+parameters = nn_model(X, Y, n_h=2, num_iterations=3000, learning_rate=1.2, print_cost=True)
