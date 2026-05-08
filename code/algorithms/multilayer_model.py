@@ -264,10 +264,52 @@ Y = labels.reshape((1, m))
 (n_x, n_h, n_y) = layer_sizes(X, Y)
 
 # Train model
-parameters = nn_model(X, Y, n_h=2, num_iterations=3000, learning_rate=1.2, print_cost=False)
+# parameters = nn_model(X, Y, n_h=2, num_iterations=3000, learning_rate=1.2, print_cost=False)
 
-X_pred = np.array([[2, 8, 2, 8], [2, 8, 8, 2]])
-Y_pred = predict(X_pred, parameters)
+# X_pred = np.array([[2, 8, 2, 8], [2, 8, 8, 2]])
+# Y_pred = predict(X_pred, parameters)
 
-print(f"Coordinates (in the columns):\n{X_pred}")
-print(f"Predictions:\n{Y_pred}")
+# print(f"Coordinates (in the columns):\n{X_pred}")
+# print(f"Predictions:\n{Y_pred}")
+
+n_samples = 2000
+samples, labels = make_blobs(n_samples=n_samples, 
+                             centers=([2.5, 3], [6.7, 7.9], [2.1, 7.9], [7.4, 2.8]), 
+                             cluster_std=1.1,
+                             random_state=0)
+labels[(labels == 0)] = 0
+labels[(labels == 1)] = 1
+labels[(labels == 2) | (labels == 3)] = 1
+X_2 = np.transpose(samples)
+Y_2 = labels.reshape((1,n_samples))
+
+plt.scatter(X_2[0, :], X_2[1, :], c=Y_2, cmap=colors.ListedColormap(['blue', 'red']))
+# parameters_2 = nn_model(X_2, Y_2, n_h=1, num_iterations=3000, learning_rate=1.2, print_cost=False)
+parameters_2 = nn_model(X_2, Y_2, n_h=2, num_iterations=3000, learning_rate=1.2, print_cost=False)
+# parameters_2 = nn_model(X_2, Y_2, n_h=15, num_iterations=3000, learning_rate=1.2, print_cost=False)
+
+def plot_decision_boundary(predict, parameters, X, Y):
+    # Define bounds of the domain.
+    min1, max1 = X[0, :].min()-1, X[0, :].max()+1
+    min2, max2 = X[1, :].min()-1, X[1, :].max()+1
+    # Define the x and y scale.
+    x1grid = np.arange(min1, max1, 0.1)
+    x2grid = np.arange(min2, max2, 0.1)
+    # Create all of the lines and rows of the grid.
+    xx, yy = np.meshgrid(x1grid, x2grid)
+    # Flatten each grid to a vector.
+    r1, r2 = xx.flatten(), yy.flatten()
+    r1, r2 = r1.reshape((1, len(r1))), r2.reshape((1, len(r2)))
+    # Vertical stack vectors to create x1,x2 input for the model.
+    grid = np.vstack((r1,r2))
+    # Make predictions for the grid.
+    predictions = predict(grid, parameters)
+    # Reshape the predictions back into a grid.
+    zz = predictions.reshape(xx.shape)
+    # Plot the grid of x, y and z values as a surface.
+    plt.contourf(xx, yy, zz, cmap=plt.cm.Spectral.reversed())
+    plt.scatter(X[0, :], X[1, :], c=Y, cmap=colors.ListedColormap(['blue', 'red']))
+
+# This function will call predict function 
+plot_decision_boundary(predict, parameters_2, X_2, Y_2)
+plt.title("Decision Boundary")
