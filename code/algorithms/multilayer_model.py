@@ -12,8 +12,6 @@ def sigmoid(z):
     
     return res
 
-# GRADED FUNCTION: layer_sizes
-
 def layer_sizes(X, Y):
     """
     Arguments:
@@ -33,3 +31,68 @@ def layer_sizes(X, Y):
     n_y = Y.shape[0] 
 
     return (n_x, n_h, n_y)
+
+def initialize_parameters(n_x, n_h, n_y):
+    """
+    Argument:
+    n_x -- size of the input layer
+    n_h -- size of the hidden layer
+    n_y -- size of the output layer
+    
+    Returns:
+    params -- python dictionary containing your parameters:
+                    W1 -- weight matrix of shape (n_h, n_x)
+                    b1 -- bias vector of shape (n_h, 1)
+                    W2 -- weight matrix of shape (n_y, n_h)
+                    b2 -- bias vector of shape (n_y, 1)
+    """
+    
+    W1 = np.random.randn(n_h, n_x) * 0.01
+    b1 = np.zeros((n_h, 1))
+    W2 = np.random.randn(n_y, n_h) * 0.01
+    b2 = np.zeros((n_y, 1))
+    
+    assert (W1.shape == (n_h, n_x))
+    assert (b1.shape == (n_h, 1))
+    assert (W2.shape == (n_y, n_h))
+    assert (b2.shape == (n_y, 1))
+    
+    parameters = {"W1": W1,
+                  "b1": b1,
+                  "W2": W2,
+                  "b2": b2}
+    
+    return parameters
+
+def forward_propagation(X, parameters):
+    """
+    Argument:
+    X -- input data of size (n_x, m)
+    parameters -- python dictionary containing your parameters (output of initialization function)
+    
+    Returns:
+    A2 -- the sigmoid output of the second activation
+    cache -- python dictionary containing Z1, A1, Z2, A2 
+    (that simplifies the calculations in the back propagation step)
+    """
+    # Retrieve each parameter from the dictionary "parameters".
+    W1 = parameters['W1']
+    b1 = parameters['b1']
+    W2 = parameters['W2']
+    b2 = parameters['b2']
+    ### END CODE HERE ###
+    
+    # Implement forward propagation to calculate A2.
+    Z1 = W1 @ X + b1
+    A1 = sigmoid(Z1)
+    Z2 = W2 @ A1 + b2
+    A2 = sigmoid(Z2)
+    
+    assert(A2.shape == (n_y, X.shape[1]))
+
+    cache = {"Z1": Z1,
+             "A1": A1,
+             "Z2": Z2,
+             "A2": A2}
+    
+    return A2, cache
