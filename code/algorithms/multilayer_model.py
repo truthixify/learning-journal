@@ -12,6 +12,28 @@ def sigmoid(z):
     
     return res
 
+def compute_cost(A2, Y):
+    """
+    Computes the cost function as a log loss
+    
+    Arguments:
+    A2 -- The output of the neural network of shape (1, number of examples)
+    Y -- "true" labels vector of shape (1, number of examples)
+    
+    Returns:
+    cost -- log loss
+    
+    """
+    # Number of examples.
+    m = Y.shape[1]
+    
+    logloss = (-Y*np.log(A2) - (1-Y)*np.log(1-A2))
+    cost = (1/m)*np.sum(logloss)
+
+    assert(isinstance(cost, float))
+    
+    return cost
+
 def layer_sizes(X, Y):
     """
     Arguments:
@@ -106,3 +128,4 @@ labels[(labels == 2) | (labels == 3)] = 0
 X = np.transpose(samples)
 Y = labels.reshape((1, m))
 (n_x, n_h, n_y) = layer_sizes(X, Y)
+
