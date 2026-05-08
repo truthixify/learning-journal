@@ -264,7 +264,7 @@ Y = labels.reshape((1, m))
 (n_x, n_h, n_y) = layer_sizes(X, Y)
 
 # Train model
-parameters = nn_model(X, Y, n_h=2, num_iterations=3000, learning_rate=1.2, print_cost=True)
+parameters = nn_model(X, Y, n_h=2, num_iterations=3000, learning_rate=1.2, print_cost=False)
 
 X_pred = np.array([[2, 8, 2, 8], [2, 8, 8, 2]])
 Y_pred = predict(X_pred, parameters)
