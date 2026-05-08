@@ -1,7 +1,20 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy.sparse.linalg
-import utils
+from matplotlib import image
+import cv2
+import glob
+
+def load_images(directory):
+    images = []
+    for filename in glob.glob(directory+'*.jpg'):
+        img = np.array(image.imread(filename))
+        gimg = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        images.append(gimg)
+
+        height, width = gimg.shape
+        
+    return images
 
 def get_cov_matrix(X):
     """ Calculate covariance matrix from centered data X
@@ -47,3 +60,19 @@ def perform_PCA(X, eigenvecs, k):
     V = eigenvecs[:,:k]
     Xred = X @ V
     return Xred
+
+imgs = load_images('--images path--')
+height, width = imgs[0].shape
+
+print(f'\nYour dataset has {len(imgs)} images of size {height}x{width} pixels\n')
+
+imgs_flatten = np.array([im.reshape(-1) for im in imgs], dtype=np.float64)
+X = center_data(imgs_flatten)
+cov_matrix = get_cov_matrix(X)
+
+np.random.seed(7)
+eigenvals, eigenvecs = scipy.sparse.linalg.eigsh(cov_matrix, k=55)
+
+print(f'Ten largest eigenvalues: \n{eigenvals[-10:]}')
+
+Xred2 = perform_PCA(X, eigenvecs, 2)
