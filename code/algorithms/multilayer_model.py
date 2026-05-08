@@ -293,7 +293,7 @@ Y_pred = predict(X_pred, parameters)
 
 print(f"Coordinates (in the columns):\n{X_pred}")
 print(f"Predictions:\n{Y_pred}")
-plot_decision_boundary(predict, parameters, X, Y)
+# plot_decision_boundary(predict, parameters, X, Y)
 
 n_samples = 2000
 samples, labels = make_blobs(n_samples=n_samples, 
@@ -307,10 +307,9 @@ X_2 = np.transpose(samples)
 Y_2 = labels.reshape((1,n_samples))
 
 plt.scatter(X_2[0, :], X_2[1, :], c=Y_2, cmap=colors.ListedColormap(['blue', 'red']))
-# parameters_2 = nn_model(X_2, Y_2, n_h=1, num_iterations=3000, learning_rate=1.2, print_cost=False)
 parameters_2 = nn_model(X_2, Y_2, n_h=2, num_iterations=3000, learning_rate=1.2, print_cost=False)
 
 # This function will call predict function 
-plot_decision_boundary(predict, parameters_2, X_2, Y_2)
+# plot_decision_boundary(predict, parameters_2, X_2, Y_2)
 plt.title("Decision Boundary")
 plt.show()
