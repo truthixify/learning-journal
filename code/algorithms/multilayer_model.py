@@ -80,7 +80,6 @@ def forward_propagation(X, parameters):
     b1 = parameters['b1']
     W2 = parameters['W2']
     b2 = parameters['b2']
-    ### END CODE HERE ###
     
     # Implement forward propagation to calculate A2.
     Z1 = W1 @ X + b1
@@ -96,3 +95,14 @@ def forward_propagation(X, parameters):
              "A2": A2}
     
     return A2, cache
+
+m = 2000
+samples, labels = make_blobs(n_samples=m, 
+                             centers=([2.5, 3], [6.7, 7.9], [2.1, 7.9], [7.4, 2.8]), 
+                             cluster_std=1.1,
+                             random_state=0)
+labels[(labels == 0) | (labels == 1)] = 1
+labels[(labels == 2) | (labels == 3)] = 0
+X = np.transpose(samples)
+Y = labels.reshape((1, m))
+(n_x, n_h, n_y) = layer_sizes(X, Y)
